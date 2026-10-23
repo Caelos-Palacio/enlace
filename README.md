@@ -1,12 +1,18 @@
 # Enlace
 
-Research-first application connections for agents. Independent of models, agent frameworks and terminals.
+[![CI](https://github.com/Caelos-Palacio/enlace/actions/workflows/ci.yml/badge.svg)](https://github.com/Caelos-Palacio/enlace/actions/workflows/ci.yml)
+
+Let an agent connect to an application only after it has read the docs: Enlace separates learning an interface, choosing a route, planning an exact operation and executing it once. Independent of models, agent frameworks and terminals.
+
+![Demo: capabilities, research, plan and execute over a JSON Lines session](docs/media/demo.gif)
+
+<sub>The session in the demo is a real `enlace session` run against a local test server. Regenerate with `python3 docs/media/demo.py capture && python3 docs/media/demo.py` (needs Pillow and ffmpeg; excluded from the npm package).</sub>
 
 Enlace is a small Node.js SDK with CLI, JSON Lines and MCP transports. It separates learning an application's interface, choosing a route, planning an exact operation and executing it. The same core handles each transport; no LLM, account or background service is required.
 
 **Status: 0.1.0, experimental.** Working built-ins are public HTTP JSON, static HTML/JSON/text and host-configured CLIs. Browser UI, native desktop control, OAuth and automatic connector generation are extension points, not built-in capabilities. The earlier Pi/Warp installation is a separate local integration and is not bundled here.
 
-[Español](README.es.md) · [Architecture](docs/architecture.md) · [Core contract](docs/core-contract.md) · [Security](SECURITY.md)
+**English** · [Español](README.es.md) · [Architecture](docs/architecture.md) · [Core contract](docs/core-contract.md) · [Security](SECURITY.md)
 
 ## Install from source
 
@@ -53,7 +59,7 @@ node src/cli.mjs run --adapter http-json --operation request \
   --reason 'API reference for the requested endpoint'
 ```
 
-`run` performs research, planning and execution in one process. `session` keeps memory between JSON Lines requests:
+`run` performs research, planning and execution in one process and exits 1 if the result is not `ok`. For adapters that require research, `--sources` and `--reason` are mandatory (without them the request fails with `INVALID_INPUT`). `enlace` with no command (or `--help`) prints the usage text and connects to nothing. `session` keeps memory between JSON Lines requests:
 
 ```json
 {"id":1,"method":"capabilities","params":{}}

@@ -1,0 +1,193 @@
+[
+ {
+  "request": {
+   "id": 1,
+   "method": "capabilities",
+   "params": {}
+  },
+  "response": {
+   "id": 1,
+   "result": {
+    "adapters": [
+     {
+      "capabilities": [
+       {
+        "cost": 1,
+        "effect": "read",
+        "id": "request",
+        "inputSchema": {
+         "additionalProperties": false,
+         "properties": {
+          "method": {
+           "default": "GET",
+           "enum": [
+            "GET"
+           ],
+           "type": "string"
+          },
+          "url": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "url"
+         ],
+         "type": "object"
+        },
+        "requiresResearch": true,
+        "schemaHash": "b800b3d287d80a25340e4b3f1f4efa0384e578c2ab059ecab43cde42c3f06f16"
+       }
+      ],
+      "id": "http-json",
+      "kind": "api",
+      "version": "0.1.0"
+     },
+     {
+      "capabilities": [
+       {
+        "cost": 2,
+        "effect": "read",
+        "id": "readPage",
+        "inputSchema": {
+         "additionalProperties": false,
+         "properties": {
+          "url": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "url"
+         ],
+         "type": "object"
+        },
+        "requiresResearch": true,
+        "schemaHash": "bd3d154710c39066b6aa168aabc479a512b1b85851bc449f2ec4510f3a74a5c3"
+       }
+      ],
+      "id": "http-static",
+      "kind": "http",
+      "version": "0.1.0"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "request": {
+   "id": 2,
+   "method": "research",
+   "params": {
+    "adapter": "http-json",
+    "operation": "request",
+    "target": "http://127.0.0.1:8080/items.json",
+    "sourceUrls": [
+     "http://127.0.0.1:8080/docs.html"
+    ],
+    "reason": "Docs say GET /items.json returns a list of items."
+   }
+  },
+  "response": {
+   "id": 2,
+   "result": {
+    "observations": [
+     {
+      "excerpt": "Items API GET /items.json returns a JSON list of items with id and name.",
+      "format": "text",
+      "status": 200,
+      "truncated": false,
+      "untrusted": true,
+      "url": "http://127.0.0.1:8080/docs.html"
+     }
+    ],
+    "receipt": {
+     "adapter": "http-json",
+     "checkedAt": 1792777380540,
+     "expiresAt": 1792777680540,
+     "grantsPermissions": false,
+     "id": "e183d897-b561-4098-acef-d4880358cc40",
+     "operation": "request",
+     "provesOfficialSource": false,
+     "reason": "Docs say GET /items.json returns a list of items.",
+     "schemaHash": "b800b3d287d80a25340e4b3f1f4efa0384e578c2ab059ecab43cde42c3f06f16",
+     "sources": [
+      {
+       "contentHash": "a9d34574b35a130866c528c9dd6653e307f4d547e0f445714c2b30121d1c588b",
+       "status": 200,
+       "url": "http://127.0.0.1:8080/docs.html"
+      }
+     ],
+     "target": "http://127.0.0.1:8080/items.json"
+    },
+    "state": "researched",
+    "untrusted": true
+   }
+  }
+ },
+ {
+  "request": {
+   "id": 3,
+   "method": "plan",
+   "params": {
+    "operation": "request",
+    "input": {
+     "url": "http://127.0.0.1:8080/items.json"
+    }
+   }
+  },
+  "response": {
+   "id": 3,
+   "result": {
+    "adapter": "http-json",
+    "alternatives": [],
+    "effect": "read",
+    "expiresAt": 1792777680542,
+    "input": {
+     "url": "http://127.0.0.1:8080/items.json"
+    },
+    "operation": "request",
+    "planId": "9971a5b9-e96c-4e2f-8827-4f6715570b12",
+    "requestHash": "226f9743bc2a4fe3a23c324a87f6d5858f4ec007e8243435fac7df2fe28f6971",
+    "schemaHash": "b800b3d287d80a25340e4b3f1f4efa0384e578c2ab059ecab43cde42c3f06f16",
+    "target": "http://127.0.0.1:8080/items.json",
+    "version": "0.1.0"
+   }
+  }
+ },
+ {
+  "request": {
+   "id": 4,
+   "method": "execute",
+   "params": {
+    "planId": "9971a5b9-e96c-4e2f-8827-4f6715570b12"
+   }
+  },
+  "response": {
+   "id": 4,
+   "result": {
+    "adapter": "http-json",
+    "data": {
+     "data": [
+      {
+       "id": 1,
+       "name": "widget"
+      },
+      {
+       "id": 2,
+       "name": "gadget"
+      }
+     ],
+     "headers": {
+      "content-type": "application/json"
+     },
+     "ok": true,
+     "status": 200,
+     "untrusted": true,
+     "url": "http://127.0.0.1:8080/items.json"
+    },
+    "ok": true,
+    "operation": "request",
+    "untrusted": true
+   }
+  }
+ }
+]
